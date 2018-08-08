@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cashier</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_print">Print</string>
+    <string name="details_activity_name">Deposit Details</string>
+
+    <string name="category_deposits">Deposit Queue</string>
+    <string name="category_posts">Posted</string>
+    <string name="category_confirmed">Confirmed</string>
+
+</resources>
