@@ -1,10 +1,14 @@
 package com.example.android.cashier;
 
-import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+
+
+
+import com.example.android.cashier.models.CategoryAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,36 +17,47 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button depositButton = findViewById(R.id.deposit_queue);
-        Button postsButton = findViewById(R.id.posted_queue);
-        Button comfirmedButton = findViewById(R.id.confirmed_queue);
+
+        ViewPager viewPager = findViewById(R.id.viewpager);
+
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this, getSupportFragmentManager());
+
+        viewPager.setAdapter(categoryAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        tabLayout.setupWithViewPager(viewPager);
 
 
 
-        depositButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DepositQueueActivity.class);
-                startActivity(intent);
 
-            }
-        });
 
-        postsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PostedQueueActivity.class);
-                startActivity(intent);
 
-            }
-        });
 
-        comfirmedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        depositButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, DepositQueueActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+//
+//        postsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, PostedQueueActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+//
+//        comfirmedButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
 

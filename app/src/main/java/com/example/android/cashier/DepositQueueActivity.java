@@ -1,28 +1,10 @@
 package com.example.android.cashier;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import com.example.android.cashier.models.Payment;
-import com.example.android.cashier.models.adapters.QueueAdapter;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.realm.Realm;
 
 public class DepositQueueActivity extends AppCompatActivity {
-    final String TAG = DepositQueueActivity.class.getSimpleName();
+//    final String TAG = DepositQueueActivity.class.getSimpleName();
 
 //    //Declare Firebase objects
 //    private FirebaseDatabase mDatabase;

@@ -1,7 +1,5 @@
 package com.example.android.cashier;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.android.cashier.models.Payment;
-import com.example.android.cashier.models.adapters.QueueAdapter;
+import com.example.android.cashier.models.QueueAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,26 +28,23 @@ public class PostedQueueFragment extends Fragment {
     private QueueAdapter postAdapter;
     private ListView queueListView;
 
-    private String TAG = PostedQueueActivity.class.getSimpleName();
-
     public PostedQueueFragment() {
         // Required empty public constructor
     }
-
-
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.queue_list, container, false);
-        //Instantiate Firebase objects
-        mDatabase = FirebaseDatabase.getInstance(); //instance of Firebase object(i.e. database root object)
-        mPostedQueueReference = mDatabase.getReference("postedDeposits"); //reference to depositQueue child object in root object
-        //Instantiate other variables
+
+
+        mDatabase = FirebaseDatabase.getInstance();
+        mPostedQueueReference = mDatabase.getReference("postedDeposits");
+
+
         queueListView = rootView.findViewById(R.id.list);
-        final List<Payment> paymentsList = new ArrayList<Payment>();
+        final List<Payment> paymentsList = new ArrayList<>();
         postAdapter = new QueueAdapter(getActivity(), R.layout.queue_view, paymentsList);
         queueListView.setAdapter(postAdapter);
 
@@ -88,7 +82,7 @@ public class PostedQueueFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "postComments:onCancelled", databaseError.toException());
+
 
             }
 

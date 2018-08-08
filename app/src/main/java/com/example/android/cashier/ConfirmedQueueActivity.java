@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.android.cashier.models.adapters.RealmQueueAdapter;
+import com.example.android.cashier.models.RealmQueueAdapter;
 import com.example.android.cashier.models.realmModels.RealmPayment;
 
 import java.util.ArrayList;

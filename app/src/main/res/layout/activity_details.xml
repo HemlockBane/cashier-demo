@@ -122,7 +122,7 @@
 
     </ScrollView>
 
-    <ImageView
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/confirm_button_details"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -132,7 +132,7 @@
         android:layout_marginStart="34dp"
         android:src="@drawable/ic_archive_white_48dp" />
 
-    <ImageView
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/post_button_details"
         android:layout_width="48dp"
         android:layout_height="48dp"

@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.example.android.cashier.models.adapters.RealmQueueAdapter;
+import com.example.android.cashier.models.RealmQueueAdapter;
 import com.example.android.cashier.models.realmModels.RealmPayment;
 
 import java.util.ArrayList;

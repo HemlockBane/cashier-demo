@@ -10,10 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.android.cashier.models.Payment;
-import com.example.android.cashier.models.adapters.QueueAdapter;
+import com.example.android.cashier.models.QueueAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -113,6 +112,7 @@ public class DepositQueueFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Payment payment = paymentsList.get(position);
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                intent.putExtra("pushID", payment.getPushID());
                 intent.putExtra("accountName", payment.getAccountName());
                 intent.putExtra("accountNumber", payment.getAccountNumber());
                 intent.putExtra("depositAmount", payment.getDepositAmount());

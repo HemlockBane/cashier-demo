@@ -1,4 +1,4 @@
-package com.example.android.cashier.models.adapters;
+package com.example.android.cashier.models;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,13 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.android.cashier.R;
-import com.example.android.cashier.models.realmModels.RealmPayment;
+import com.example.android.cashier.models.Payment;
 
 import java.util.List;
 
-public class RealmQueueAdapter extends ArrayAdapter<RealmPayment> {
-    public RealmQueueAdapter(Context context, int resource, List<RealmPayment> payments){
+public class QueueAdapter extends ArrayAdapter<Payment> {
+    public QueueAdapter(Context context, int resource, List<Payment> payments){
         super(context, 0, payments);
+
 
     }
 
@@ -27,17 +28,17 @@ public class RealmQueueAdapter extends ArrayAdapter<RealmPayment> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.queue_view, parent, false);
         }
         //get current item
-        RealmPayment currentRealmPayment = getItem(position);
+        Payment currentPayment = getItem(position);
 
         TextView accountView = convertView.findViewById(R.id.account_name_text);
         TextView accountNumberView = convertView.findViewById(R.id.account_number_text);
         TextView depositAmountView = convertView.findViewById(R.id.deposit_amount_text);
 
 
-        accountView.setText(currentRealmPayment.getAccountName());
-        accountNumberView.setText(currentRealmPayment.getAccountNumber());
+        accountView.setText(currentPayment.getAccountName());
+        accountNumberView.setText(currentPayment.getAccountNumber());
 
-        String depositAmount = currentRealmPayment.getDepositAmount();
+        String depositAmount = currentPayment.getDepositAmount();
         String formattedDepositAmount = formatDepositAmount(depositAmount);
         depositAmountView.setText(formattedDepositAmount);
 

@@ -2,6 +2,7 @@ package com.example.android.cashier;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,10 +32,11 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView depositorNameText;
     private TextView depositorPhoneNumberText;
     private TextView depositorEmailText;
-    private ImageView postPaymentButton;
-    private ImageView confirmPaymentButton;
+    private FloatingActionButton postPaymentButton;
+    private FloatingActionButton confirmPaymentButton;
 
 
+    String pushID;
     String accountName;
     String accountNumber;
     String depositAmount;
@@ -63,6 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
+            pushID = bundle.getString("pushID");
             accountName = bundle.getString("accountName");
             accountNumber = bundle.getString("accountNumber");
             depositAmount = bundle.getString("depositAmount");
@@ -84,7 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
         postPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Payment post = new Payment(accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
+                Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
                 mDatabaseReference.child("postedDeposits").push().setValue(post)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -126,6 +129,7 @@ public class DetailsActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_delete:
                 //Fill out some code here
+                mDatabaseReference.child("depositQueue").child(pushID).removeValue();
 
                 return true;
             case R.id.action_print:
