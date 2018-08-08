@@ -6,10 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-
-import com.example.android.cashier.models.CategoryAdapter;
-
-
 public class MainActivity extends AppCompatActivity {
 
     @Override

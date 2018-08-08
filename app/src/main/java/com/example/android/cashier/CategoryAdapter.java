@@ -1,15 +1,10 @@
-package com.example.android.cashier.models;
+package com.example.android.cashier;
 
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.example.android.cashier.ConfirmedQueueFragment;
-import com.example.android.cashier.DepositQueueFragment;
-import com.example.android.cashier.PostedQueueFragment;
-import com.example.android.cashier.R;
 
 
 
