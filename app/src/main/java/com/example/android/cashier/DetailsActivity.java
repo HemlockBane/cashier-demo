@@ -126,6 +126,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 saveToDatabase();
                 viewDatabase();
+
             }
         });
     }

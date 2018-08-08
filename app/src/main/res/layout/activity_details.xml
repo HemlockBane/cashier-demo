@@ -28,14 +28,14 @@
                 android:layout_margin="16dp"
                 android:text="Account Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/account_name_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="28sp"
+                android:textSize="25sp"
                 tools:text="Details" />
 
             <TextView
@@ -44,14 +44,14 @@
                 android:layout_margin="16dp"
                 android:text="Account Number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/account_number_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="28sp"
+                android:textSize="25sp"
                 tools:text="Details" />
 
             <TextView
@@ -60,14 +60,14 @@
                 android:layout_margin="16dp"
                 android:text="Deposit Amount"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/deposit_amount_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="28sp"
+                android:textSize="25sp"
                 tools:text="Details" />
 
             <TextView
@@ -76,14 +76,14 @@
                 android:layout_margin="16dp"
                 android:text="Depositor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/depositor_name_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="28sp"
+                android:textSize="25sp"
                 tools:text="Details" />
 
             <TextView
@@ -92,14 +92,14 @@
                 android:layout_margin="16dp"
                 android:text="Depositor Phone Number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/depositor_phone_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="28sp"
+                android:textSize="25sp"
                 tools:text="Details" />
 
             <TextView
@@ -108,14 +108,14 @@
                 android:layout_margin="16dp"
                 android:text="Depositor Email"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/depositor_email_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="28sp"
+                android:textSize="25sp"
                 tools:text="Details" />
         </LinearLayout>
 
