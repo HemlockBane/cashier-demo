@@ -1,4 +1,4 @@
-package com.example.android.cashier.models.realmModels;
+package com.example.android.cashier.models;
 
 import io.realm.RealmObject;
 

@@ -15,17 +15,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.cashier.models.Payment;
+import com.example.android.cashier.models.RealmPayment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class DetailsActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mPostReference;
 
+    Realm realm;
+
     final String TAG = DetailsActivity.class.getSimpleName();
+    public static List<RealmPayment> paymentList = new ArrayList<>();
     private TextView accountNameText;
     private TextView accountNumberText;
     private TextView depositAmountText;
@@ -51,6 +61,8 @@ public class DetailsActivity extends AppCompatActivity {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
+
+        realm = Realm.getDefaultInstance();
 
         accountNameText = findViewById(R.id.account_name_details);
         accountNumberText = findViewById(R.id.account_number_details);
@@ -104,6 +116,7 @@ public class DetailsActivity extends AppCompatActivity {
                             }
                         });
 
+
             }
         });
 
@@ -111,10 +124,12 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                saveToDatabase();
+                viewDatabase();
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu
@@ -126,7 +141,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_delete:
                 //Fill out some code here
                 mDatabaseReference.child("depositQueue").child(pushID).removeValue();
@@ -138,5 +153,47 @@ public class DetailsActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveToDatabase() {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                RealmPayment data = bgRealm.createObject(RealmPayment.class);
+                data.setAccountName(accountName);
+                data.setAccountNumber(accountNumber);
+                data.setDepositAmount(depositAmount);
+                data.setDepositorName(depositorName);
+                data.setDepositorPhoneNumber(depositorPhoneNumber);
+                data.setDepositorEmail(depositorEmail);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                // Transaction was a success.
+                Log.e(TAG, "Save successful");
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Transaction failed and was automatically canceled.
+                Log.e(TAG, "Save failed");
+            }
+        });
+
+    }
+
+    public void viewDatabase() {
+        RealmResults<RealmPayment> confirmedPayments = realm.where(RealmPayment.class).findAll();
+
+        //Use an iterator to invite all confirmedPayments
+
+        realm.beginTransaction();
+        //for all payment classes in confirmedPayments
+        for (RealmPayment payment : confirmedPayments) {
+            paymentList.add(payment);
+
+        }
     }
 }

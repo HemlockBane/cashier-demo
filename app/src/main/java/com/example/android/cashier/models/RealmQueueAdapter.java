@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.android.cashier.R;
-import com.example.android.cashier.models.realmModels.RealmPayment;
 
 import java.util.List;
 

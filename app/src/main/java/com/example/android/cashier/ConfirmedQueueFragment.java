@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.android.cashier.models.RealmQueueAdapter;
-import com.example.android.cashier.models.realmModels.RealmPayment;
+import com.example.android.cashier.models.RealmPayment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class ConfirmedQueueFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.queue_list, container, false);
         paymentList.clear();
-        //paymentList.addAll(DetailsActivity.paymentList);
+        paymentList.addAll(DetailsActivity.paymentList);
 
         realmQueueAdapter = new RealmQueueAdapter(getActivity(), R.layout.queue_view, paymentList);
 
