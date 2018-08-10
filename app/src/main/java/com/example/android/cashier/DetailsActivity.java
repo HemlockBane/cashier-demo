@@ -99,6 +99,8 @@ public class DetailsActivity extends AppCompatActivity {
         postPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent mainActivityIntent =new Intent(DetailsActivity.this, MainActivity.class);
+                startActivity(mainActivityIntent);
                 Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
                 mDatabaseReference.child("postedDeposits").push().setValue(post)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -126,6 +128,8 @@ public class DetailsActivity extends AppCompatActivity {
 
                 saveToDatabase();
                 viewDatabase();
+                Intent mainActivityIntent =new Intent(DetailsActivity.this, MainActivity.class);
+                startActivity(mainActivityIntent);
 
             }
         });
@@ -147,7 +151,8 @@ public class DetailsActivity extends AppCompatActivity {
                 //Fill out some code here
                 mDatabaseReference.child("depositQueue").child(pushID).removeValue();
 
-                Intent intent = new Intent(DetailsActivity.this, DepositQueueActivity.class);
+                Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
+                startActivity(mainActivityIntent);
 
                 return true;
             case R.id.action_print:
