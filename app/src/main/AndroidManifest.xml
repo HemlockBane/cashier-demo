@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,8 @@
             android:name=".DetailsActivity"
             android:label="@string/details_activity_name" />
         <activity android:name=".PostedQueueActivity" />
-        <activity android:name=".ConfirmedQueueActivity"/>
+        <activity android:name=".ConfirmedQueueActivity" />
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>

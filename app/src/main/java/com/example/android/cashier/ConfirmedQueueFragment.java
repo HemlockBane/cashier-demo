@@ -34,6 +34,10 @@ public class ConfirmedQueueFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.queue_list, container, false);
+
+
+        progressBar = rootView.findViewById(R.id.loading_indicator);
+        progressBar.setVisibility(View.GONE);
         paymentList.clear();
         paymentList.addAll(DetailsActivity.paymentList);
 

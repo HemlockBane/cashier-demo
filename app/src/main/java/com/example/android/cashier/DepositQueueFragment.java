@@ -41,6 +41,7 @@ public class DepositQueueFragment extends Fragment {
     //Declare ListView and Adapter objects
     private QueueAdapter postAdapter;
     private ListView queueListView;
+    private View loadingIndicator;
 
 
     public DepositQueueFragment() {
@@ -57,6 +58,7 @@ public class DepositQueueFragment extends Fragment {
         mDepositQueueReference = mDatabase.getReference("depositQueue"); //reference to depositQueue child object in root object
         //Instantiate other variables
         queueListView = rootView.findViewById(R.id.list);
+        loadingIndicator = rootView.findViewById(R.id.loading_indicator);
         final List<Payment> paymentsList = new ArrayList<Payment>();
         postAdapter = new QueueAdapter(getActivity(), R.layout.queue_view, paymentsList);
         queueListView.setAdapter(postAdapter);
@@ -70,6 +72,7 @@ public class DepositQueueFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists()){
+                    loadingIndicator.setVisibility(View.GONE);
                     Payment payment = dataSnapshot.getValue(Payment.class);
                     /**Uncomment this when you've finished*/
 

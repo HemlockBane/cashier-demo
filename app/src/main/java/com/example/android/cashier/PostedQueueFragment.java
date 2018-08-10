@@ -27,6 +27,7 @@ public class PostedQueueFragment extends Fragment {
     //Declare ListView and Adapter objects
     private QueueAdapter postAdapter;
     private ListView queueListView;
+    private View loadingIndicator;
 
     public PostedQueueFragment() {
         // Required empty public constructor
@@ -44,6 +45,7 @@ public class PostedQueueFragment extends Fragment {
 
 
         queueListView = rootView.findViewById(R.id.list);
+        loadingIndicator = rootView.findViewById(R.id.loading_indicator);
         final List<Payment> paymentsList = new ArrayList<>();
         postAdapter = new QueueAdapter(getActivity(), R.layout.queue_view, paymentsList);
         queueListView.setAdapter(postAdapter);
@@ -55,6 +57,7 @@ public class PostedQueueFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists()){
+                    loadingIndicator.setVisibility(View.GONE);
                     Payment payment = dataSnapshot.getValue(Payment.class);
 
                     postAdapter.add(payment); //here, you could use queueListView.add() too

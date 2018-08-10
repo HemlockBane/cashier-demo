@@ -147,6 +147,8 @@ public class DetailsActivity extends AppCompatActivity {
                 //Fill out some code here
                 mDatabaseReference.child("depositQueue").child(pushID).removeValue();
 
+                Intent intent = new Intent(DetailsActivity.this, DepositQueueActivity.class);
+
                 return true;
             case R.id.action_print:
                 //Fill out some code here
