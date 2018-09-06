@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -32,7 +33,8 @@ public class DetailsActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mPostReference;
 
-    Realm realm;
+    private Realm realm;
+    private RealmAsyncTask realmAsyncTask;
 
     final String TAG = DetailsActivity.class.getSimpleName();
     public static List<RealmPayment> paymentList = new ArrayList<>();
@@ -99,7 +101,7 @@ public class DetailsActivity extends AppCompatActivity {
         postPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainActivityIntent =new Intent(DetailsActivity.this, MainActivity.class);
+                Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
                 startActivity(mainActivityIntent);
                 Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
                 mDatabaseReference.child("postedDeposits").push().setValue(post)
@@ -126,14 +128,16 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                confirmPaymentButton.setEnabled(false);
                 saveToDatabase();
                 viewDatabase();
-                Intent mainActivityIntent =new Intent(DetailsActivity.this, MainActivity.class);
+                Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
                 startActivity(mainActivityIntent);
 
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,31 +168,36 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     public void saveToDatabase() {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                RealmPayment data = bgRealm.createObject(RealmPayment.class);
-                data.setAccountName(accountName);
-                data.setAccountNumber(accountNumber);
-                data.setDepositAmount(depositAmount);
-                data.setDepositorName(depositorName);
-                data.setDepositorPhoneNumber(depositorPhoneNumber);
-                data.setDepositorEmail(depositorEmail);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                // Transaction was a success.
-                Log.e(TAG, "Save successful");
+        final RealmPayment data = new RealmPayment(accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
+//        RealmPayment data = bgRealm.createObject(RealmPayment.class);
+//        data.setAccountName(accountName);
+//        data.setAccountNumber(accountNumber);
+//        data.setDepositAmount(depositAmount);
+//        data.setDepositorName(depositorName);
+//        data.setDepositorPhoneNumber(depositorPhoneNumber);
+//        data.setDepositorEmail(depositorEmail);
 
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                // Transaction failed and was automatically canceled.
-                Log.e(TAG, "Save failed");
-            }
-        });
+        realmAsyncTask = realm.executeTransactionAsync(
+                new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+
+                        RealmPayment payment = realm.copyToRealm(data);
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        // Transaction was a success.
+                        Log.e(TAG, "Save successful");
+
+                    }
+                }, new Realm.Transaction.OnError() {
+                    @Override
+                    public void onError(Throwable error) {
+                        // Transaction failed and was automatically canceled.
+                        Log.e(TAG, "Save failed");
+                    }
+                });
 
     }
 
@@ -197,11 +206,27 @@ public class DetailsActivity extends AppCompatActivity {
 
         //Use an iterator to invite all confirmedPayments
 
-        realm.beginTransaction();
-        //for all payment classes in confirmedPayments
+        //For all payment classes in confirmedPayments
         for (RealmPayment payment : confirmedPayments) {
+            // Add all confirmed payments to arraylist
             paymentList.add(payment);
 
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // If transaction exists, and has not been cancelled, cancel task
+        if (realmAsyncTask != null && !realmAsyncTask.isCancelled()) {
+            realmAsyncTask.cancel();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }
