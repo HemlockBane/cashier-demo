@@ -33,7 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mPostReference;
 
-    private Realm realm;
+    Realm realm;
     private RealmAsyncTask realmAsyncTask;
 
     final String TAG = DetailsActivity.class.getSimpleName();
@@ -130,7 +130,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 confirmPaymentButton.setEnabled(false);
                 saveToDatabase();
-                viewDatabase();
+                //viewDatabase();
                 Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
                 startActivity(mainActivityIntent);
 
