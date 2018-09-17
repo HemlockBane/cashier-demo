@@ -31,14 +31,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/content_bold_black"
-                    android:textSize="22sp"
+                    android:textSize="30sp"
                     tools:text="James Franko" />
 
                 <TextView
                     android:id="@+id/account_number_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
+                    android:textSize="26sp"
                     tools:text="0149603509" />
 
             </LinearLayout>
@@ -54,7 +54,7 @@
                     android:padding="4dp"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/colorAccent"
-                    android:textSize="28sp"
+                    android:textSize="34sp"
                     tools:text="N45000" />
             </LinearLayout>
         </LinearLayout>

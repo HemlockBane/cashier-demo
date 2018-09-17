@@ -1,8 +1,11 @@
 package com.example.android.cashier;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,15 +23,28 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
 
 public class DetailsActivity extends AppCompatActivity {
+
+    final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    public static final int REQUEST_PERM_WRITE_STORAGE = 102;
+
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mPostReference;
@@ -160,15 +176,65 @@ public class DetailsActivity extends AppCompatActivity {
 
                 return true;
             case R.id.action_print:
-                //Fill out some code here
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(DetailsActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERM_WRITE_STORAGE);
+                } else {
+                    createPdf();
+                }
                 return true;
 
         }
         return super.onOptionsItemSelected(item);
     }
+    public void createPdf() {
+        Document document = new Document();
+
+        String path = Environment.getExternalStorageDirectory() + "/Cashier_Pdf";
+
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        Log.e(LOG_TAG, "PDF path : " + path);
+
+        String ID = UUID.randomUUID().toString();
+
+        File file = new File(dir, ID + ".pdf");
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+            PdfWriter.getInstance(document, fileOutputStream);
+            document.open();
+
+
+            document.add(new Paragraph(accountName));
+            document.add(new Paragraph(accountNumber));
+            document.add(new Paragraph(depositAmount));
+            document.add(new Paragraph(depositorName));
+            document.add(new Paragraph(depositorPhoneNumber));
+            document.add(new Paragraph(depositorEmail));
+
+
+            Toast.makeText(this, "Pdf created", Toast.LENGTH_SHORT).show();
+            document.close();
+        } catch (FileNotFoundException | DocumentException e) {
+            e.printStackTrace();
+        }
+//        finally {
+//
+//        }
+    }
 
     public void saveToDatabase() {
-        final RealmPayment data = new RealmPayment(accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
+        final RealmPayment data = new RealmPayment(
+                accountName,
+                accountNumber,
+                depositAmount,
+                depositorName,
+                depositorPhoneNumber,
+                depositorEmail);
 //        RealmPayment data = bgRealm.createObject(RealmPayment.class);
 //        data.setAccountName(accountName);
 //        data.setAccountNumber(accountNumber);
