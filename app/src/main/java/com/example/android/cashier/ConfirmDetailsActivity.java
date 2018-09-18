@@ -41,13 +41,13 @@ import io.realm.RealmResults;
 
 public class ConfirmDetailsActivity extends AppCompatActivity {
 
-    final String LOG_TAG = MainActivity.class.getSimpleName();
+    final String LOG_TAG = ConfirmDetailsActivity.class.getSimpleName();
 
     public static final int REQUEST_PERM_WRITE_STORAGE = 102;
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    private DatabaseReference mPostReference;
+
 
     Realm realm;
     private RealmAsyncTask realmAsyncTask;
@@ -60,7 +60,7 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
     private TextView depositorNameText;
     private TextView depositorPhoneNumberText;
     private TextView depositorEmailText;
-    private FloatingActionButton postPaymentButton;
+
     private Button confirmPaymentButton;
 
 
@@ -88,9 +88,8 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
         depositorNameText = findViewById(R.id.depositor_name_details);
         depositorPhoneNumberText = findViewById(R.id.depositor_phone_details);
         depositorEmailText = findViewById(R.id.depositor_email_details);
-        //postPaymentButton = findViewById(R.id.post_button_details);
-        confirmPaymentButton = findViewById(R.id.bt_confirm_details);
 
+        confirmPaymentButton = findViewById(R.id.bt_confirm_details);
 
 
         Intent intent = getIntent();
@@ -103,6 +102,7 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
             depositorName = bundle.getString("depositorName");
             depositorPhoneNumber = bundle.getString("depositorPhoneNumber");
             depositorEmail = bundle.getString("depositorEmail");
+            Log.e(LOG_TAG, "Email is : " + depositorEmail);
         }
 
         Log.e(TAG, "Phone number is: " + depositorPhoneNumber);
@@ -115,32 +115,6 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
         depositorEmailText.setText(depositorEmail);
 
 
-//        postPaymentButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, MainActivity.class);
-//                startActivity(mainActivityIntent);
-//                Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
-//                mDatabaseReference.child("postedDeposits").push().setValue(post)
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                // Write was successful!
-//                                Toast.makeText(ConfirmDetailsActivity.this, "Payment is successful", Toast.LENGTH_SHORT).show();
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                // Write failed
-//                                Toast.makeText(ConfirmDetailsActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//
-//
-//            }
-//        });
-
         confirmPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,8 +122,9 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
                 confirmPaymentButton.setEnabled(false);
                 saveToDatabase();
                 //viewDatabase();
-                Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
-                startActivity(mainActivityIntent);
+//                Intent postDetailsIntent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
+//                startActivity(postDetailsIntent);
+                sendToPostActivity();
 
             }
         });
@@ -188,6 +163,7 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void createPdf() {
         Document document = new Document();
 
@@ -226,6 +202,18 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
 //        finally {
 //
 //        }
+    }
+
+    public void sendToPostActivity(){
+        Intent intent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
+        intent.putExtra("pushID", pushID);
+        intent.putExtra("accountName", accountName);
+        intent.putExtra("accountNumber", accountNumber);
+        intent.putExtra("depositAmount", depositAmount);
+        intent.putExtra("depositorName", depositorName);
+        intent.putExtra("depositorPhoneNumber", depositorPhoneNumber);
+        intent.putExtra("depositorEmail", depositorEmail);
+        startActivity(intent);
     }
 
     public void saveToDatabase() {
