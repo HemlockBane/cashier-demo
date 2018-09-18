@@ -120,10 +120,10 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 confirmPaymentButton.setEnabled(false);
+
+                // Save data to realm database
                 saveToDatabase();
-                //viewDatabase();
-//                Intent postDetailsIntent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
-//                startActivity(postDetailsIntent);
+
                 sendToPostActivity();
 
             }
@@ -204,7 +204,7 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
 //        }
     }
 
-    public void sendToPostActivity(){
+    public void sendToPostActivity() {
         Intent intent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
         intent.putExtra("pushID", pushID);
         intent.putExtra("accountName", accountName);
@@ -224,13 +224,6 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
                 depositorName,
                 depositorPhoneNumber,
                 depositorEmail);
-//        RealmPayment data = bgRealm.createObject(RealmPayment.class);
-//        data.setAccountName(accountName);
-//        data.setAccountNumber(accountNumber);
-//        data.setDepositAmount(depositAmount);
-//        data.setDepositorName(depositorName);
-//        data.setDepositorPhoneNumber(depositorPhoneNumber);
-//        data.setDepositorEmail(depositorEmail);
 
         realmAsyncTask = realm.executeTransactionAsync(
                 new Realm.Transaction() {

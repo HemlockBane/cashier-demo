@@ -1,19 +1,28 @@
 package com.example.android.cashier;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.cashier.models.Payment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class PostDetailsActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = PostDetailsActivity.class.getSimpleName();
-    private DatabaseReference mPostReference;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
 
     private Button postPaymentButton;
 
@@ -36,6 +45,9 @@ public class PostDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference();
 
         postPaymentButton = findViewById(R.id.bt_post_post_details);
 
@@ -68,33 +80,33 @@ public class PostDetailsActivity extends AppCompatActivity {
         depositorPhoneNumberText.setText(depositorPhoneNumber);
         depositorEmailText.setText(depositorEmail);
 
+        postPaymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivityIntent = new Intent(PostDetailsActivity.this, MainActivity.class);
+                startActivity(mainActivityIntent);
 
-//        postPaymentButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, MainActivity.class);
-//                startActivity(mainActivityIntent);
-//                Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
-//                mDatabaseReference.child("postedDeposits").push().setValue(post)
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                // Write was successful!
-//                                Toast.makeText(ConfirmDetailsActivity.this, "Payment is successful", Toast.LENGTH_SHORT).show();
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                // Write failed
-//                                Toast.makeText(ConfirmDetailsActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//
-//
-//            }
-//        });
+                Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
 
+                // Push to database
+                mDatabaseReference.child("postedDeposits").push().setValue(post)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Write was successful!
+                                Toast.makeText(PostDetailsActivity.this, "Payment is successful", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Write failed
+                                Toast.makeText(PostDetailsActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
 
     }
+
 }

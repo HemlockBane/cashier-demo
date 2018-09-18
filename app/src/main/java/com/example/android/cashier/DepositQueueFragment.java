@@ -56,6 +56,7 @@ public class DepositQueueFragment extends Fragment {
         //Instantiate Firebase objects
         mDatabase = FirebaseDatabase.getInstance(); //instance of Firebase object(i.e. database root object)
         mDepositQueueReference = mDatabase.getReference("depositQueue"); //reference to depositQueue child object in root object
+
         //Instantiate other variables
         queueListView = rootView.findViewById(R.id.list);
         loadingIndicator = rootView.findViewById(R.id.loading_indicator);
@@ -71,7 +72,7 @@ public class DepositQueueFragment extends Fragment {
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     loadingIndicator.setVisibility(View.GONE);
                     Payment payment = dataSnapshot.getValue(Payment.class);
                     /**Uncomment this when you've finished*/
@@ -114,6 +115,7 @@ public class DepositQueueFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Payment payment = paymentsList.get(position);
+
                 Intent intent = new Intent(getActivity(), ConfirmDetailsActivity.class);
                 intent.putExtra("pushID", payment.getPushID());
                 intent.putExtra("accountName", payment.getAccountName());
