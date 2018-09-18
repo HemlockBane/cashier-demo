@@ -29,8 +29,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="Account Details"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="@dimen/text_size_26" />
+                    android:textColor="@color/colorAccent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textSize="35sp" />
 
 
                 <TextView
@@ -95,8 +96,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="Depositor's Details"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="@dimen/text_size_26" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="35dp" />
 
                 <TextView
                     android:layout_width="match_parent"
