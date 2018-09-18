@@ -39,7 +39,7 @@ import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
 
-public class DetailsActivity extends AppCompatActivity {
+public class ConfirmDetailsActivity extends AppCompatActivity {
 
     final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -52,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
     Realm realm;
     private RealmAsyncTask realmAsyncTask;
 
-    final String TAG = DetailsActivity.class.getSimpleName();
+    final String TAG = ConfirmDetailsActivity.class.getSimpleName();
     public static List<RealmPayment> paymentList = new ArrayList<>();
     private TextView accountNameText;
     private TextView accountNumberText;
@@ -61,7 +61,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView depositorPhoneNumberText;
     private TextView depositorEmailText;
     private FloatingActionButton postPaymentButton;
-    private FloatingActionButton confirmPaymentButton;
+    private Button confirmPaymentButton;
 
 
     String pushID;
@@ -75,7 +75,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_confirm_details);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
@@ -88,8 +88,9 @@ public class DetailsActivity extends AppCompatActivity {
         depositorNameText = findViewById(R.id.depositor_name_details);
         depositorPhoneNumberText = findViewById(R.id.depositor_phone_details);
         depositorEmailText = findViewById(R.id.depositor_email_details);
-        postPaymentButton = findViewById(R.id.post_button_details);
-        confirmPaymentButton = findViewById(R.id.confirm_button_details);
+        //postPaymentButton = findViewById(R.id.post_button_details);
+        confirmPaymentButton = findViewById(R.id.bt_confirm_details);
+
 
 
         Intent intent = getIntent();
@@ -114,31 +115,31 @@ public class DetailsActivity extends AppCompatActivity {
         depositorEmailText.setText(depositorEmail);
 
 
-        postPaymentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
-                startActivity(mainActivityIntent);
-                Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
-                mDatabaseReference.child("postedDeposits").push().setValue(post)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                // Write was successful!
-                                Toast.makeText(DetailsActivity.this, "Payment is successful", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Write failed
-                                Toast.makeText(DetailsActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-
-            }
-        });
+//        postPaymentButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, MainActivity.class);
+//                startActivity(mainActivityIntent);
+//                Payment post = new Payment(pushID, accountName, accountNumber, depositAmount, depositorName, depositorPhoneNumber, depositorEmail);
+//                mDatabaseReference.child("postedDeposits").push().setValue(post)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                // Write was successful!
+//                                Toast.makeText(ConfirmDetailsActivity.this, "Payment is successful", Toast.LENGTH_SHORT).show();
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                // Write failed
+//                                Toast.makeText(ConfirmDetailsActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+//
+//            }
+//        });
 
         confirmPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +148,7 @@ public class DetailsActivity extends AppCompatActivity {
                 confirmPaymentButton.setEnabled(false);
                 saveToDatabase();
                 //viewDatabase();
-                Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
+                Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
                 startActivity(mainActivityIntent);
 
             }
@@ -171,14 +172,14 @@ public class DetailsActivity extends AppCompatActivity {
                 //Fill out some code here
                 mDatabaseReference.child("depositQueue").child(pushID).removeValue();
 
-                Intent mainActivityIntent = new Intent(DetailsActivity.this, MainActivity.class);
+                Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, MainActivity.class);
                 startActivity(mainActivityIntent);
 
                 return true;
             case R.id.action_print:
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(DetailsActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERM_WRITE_STORAGE);
+                    ActivityCompat.requestPermissions(ConfirmDetailsActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERM_WRITE_STORAGE);
                 } else {
                     createPdf();
                 }

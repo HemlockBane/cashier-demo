@@ -114,7 +114,7 @@ public class DepositQueueFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Payment payment = paymentsList.get(position);
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                Intent intent = new Intent(getActivity(), ConfirmDetailsActivity.class);
                 intent.putExtra("pushID", payment.getPushID());
                 intent.putExtra("accountName", payment.getAccountName());
                 intent.putExtra("accountNumber", payment.getAccountNumber());
