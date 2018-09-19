@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -31,7 +30,7 @@
                     android:text="Account Details"
                     android:textColor="@color/colorAccent"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textSize="35sp" />
+                    android:textSize="28sp" />
 
 
                 <TextView
@@ -43,7 +42,7 @@
                     android:textSize="@dimen/text_size_26" />
 
                 <TextView
-                    android:id="@+id/account_name_details"
+                    android:id="@+id/tv_account_name_post_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -59,7 +58,7 @@
                     android:textSize="@dimen/text_size_26" />
 
                 <TextView
-                    android:id="@+id/account_number_details"
+                    android:id="@+id/tv_account_number_post_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -75,7 +74,7 @@
                     android:textSize="@dimen/text_size_26" />
 
                 <TextView
-                    android:id="@+id/deposit_amount_details"
+                    android:id="@+id/tv_deposit_amount_post_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -98,7 +97,7 @@
                     android:text="Depositor's Details"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@color/colorAccent"
-                    android:textSize="35dp" />
+                    android:textSize="28dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -109,7 +108,7 @@
                     android:textSize="@dimen/text_size_26" />
 
                 <TextView
-                    android:id="@+id/depositor_name_details"
+                    android:id="@+id/tv_depositor_name_post_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -125,7 +124,7 @@
                     android:textSize="@dimen/text_size_26" />
 
                 <TextView
-                    android:id="@+id/depositor_phone_details"
+                    android:id="@+id/tv_depositor_phone_post_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -141,7 +140,7 @@
                     android:textSize="@dimen/text_size_26" />
 
                 <TextView
-                    android:id="@+id/depositor_email_details"
+                    android:id="@+id/tv_depositor_email_post_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -175,15 +174,14 @@
         <!--android:src="@drawable/ic_send_white_48dp" />-->
 
     <Button
-        android:id="@+id/bt_confirm_details"
+        android:id="@+id/bt_post_post_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="17dp"
         android:layout_marginEnd="34dp"
-        android:text="Confirm"
+        android:text="Post"
         android:textColor="#FFFFFF"/>
 
 </RelativeLayout>
-
