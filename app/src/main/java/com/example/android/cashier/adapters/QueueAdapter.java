@@ -1,4 +1,4 @@
-package com.example.android.cashier.models;
+package com.example.android.cashier.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

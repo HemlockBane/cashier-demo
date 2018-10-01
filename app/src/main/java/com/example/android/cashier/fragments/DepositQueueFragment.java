@@ -1,4 +1,4 @@
-package com.example.android.cashier;
+package com.example.android.cashier.fragments;
 
 
 import android.content.Intent;
@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.android.cashier.activities.ConfirmDetailsActivity;
+import com.example.android.cashier.R;
 import com.example.android.cashier.models.Payment;
-import com.example.android.cashier.models.QueueAdapter;
+import com.example.android.cashier.adapters.QueueAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

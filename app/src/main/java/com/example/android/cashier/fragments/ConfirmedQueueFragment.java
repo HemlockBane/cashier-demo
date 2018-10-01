@@ -1,4 +1,4 @@
-package com.example.android.cashier;
+package com.example.android.cashier.fragments;
 
 
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.android.cashier.models.RealmQueueAdapter;
+import com.example.android.cashier.R;
+import com.example.android.cashier.adapters.RealmQueueAdapter;
 import com.example.android.cashier.models.RealmPayment;
 
 import java.util.ArrayList;

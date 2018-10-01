@@ -1,4 +1,4 @@
-package com.example.android.cashier.models;
+package com.example.android.cashier.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.android.cashier.R;
+import com.example.android.cashier.models.RealmPayment;
 
 import java.text.NumberFormat;
 import java.util.List;

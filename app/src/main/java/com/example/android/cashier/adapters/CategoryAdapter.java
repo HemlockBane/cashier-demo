@@ -1,4 +1,4 @@
-package com.example.android.cashier;
+package com.example.android.cashier.adapters;
 
 
 import android.content.Context;
@@ -6,6 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.android.cashier.fragments.ConfirmedQueueFragment;
+import com.example.android.cashier.fragments.DepositQueueFragment;
+import com.example.android.cashier.fragments.PostedQueueFragment;
+import com.example.android.cashier.R;
 
 
 public class CategoryAdapter extends FragmentPagerAdapter {

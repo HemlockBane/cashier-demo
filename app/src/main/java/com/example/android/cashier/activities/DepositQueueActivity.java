@@ -1,7 +1,10 @@
-package com.example.android.cashier;
+package com.example.android.cashier.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.android.cashier.R;
+import com.example.android.cashier.fragments.DepositQueueFragment;
 
 public class DepositQueueActivity extends AppCompatActivity {
 //    final String TAG = DepositQueueActivity.class.getSimpleName();

@@ -1,15 +1,15 @@
-package com.example.android.cashier;
+package com.example.android.cashier.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.android.cashier.R;
 import com.example.android.cashier.models.Payment;
-import com.example.android.cashier.models.QueueAdapter;
+import com.example.android.cashier.adapters.QueueAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
