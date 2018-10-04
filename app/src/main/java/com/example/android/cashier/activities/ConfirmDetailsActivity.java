@@ -36,15 +36,18 @@ import io.realm.RealmResults;
 
 public class ConfirmDetailsActivity extends AppCompatActivity {
 
-    final String LOG_TAG = ConfirmDetailsActivity.class.getSimpleName();
+    final String LOG_TAG = ConfirmDetailsActivity.class.getSimpleName(); //Activity name for logging
 
-    public static final int REQUEST_PERM_WRITE_STORAGE = 102;
+
+    public static final int REQUEST_PERM_WRITE_STORAGE = 102; //Constant for permission request
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
 
 
+    // Declare Realm variable
     Realm realm;
+    // Declare variable for Realm asynchronous transaction
     private RealmAsyncTask realmAsyncTask;
 
     final String TAG = ConfirmDetailsActivity.class.getSimpleName();
@@ -75,8 +78,10 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
+        // Get instance of Realm database
         realm = Realm.getDefaultInstance();
 
+        // Bind views to their respective IDs
         accountNameText = findViewById(R.id.account_name_details);
         accountNumberText = findViewById(R.id.account_number_details);
         depositAmountText = findViewById(R.id.deposit_amount_details);
@@ -86,9 +91,12 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
 
         confirmPaymentButton = findViewById(R.id.bt_confirm_details);
 
-
+        // Get intent from previous activity
         Intent intent = getIntent();
+        // Get passed data bundle from the intent
         Bundle bundle = intent.getExtras();
+
+        // Extract data from data bundle, if bundle is not null
         if (bundle != null) {
             pushID = bundle.getString("pushID");
             accountName = bundle.getString("accountName");
@@ -97,11 +105,15 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
             depositorName = bundle.getString("depositorName");
             depositorPhoneNumber = bundle.getString("depositorPhoneNumber");
             depositorEmail = bundle.getString("depositorEmail");
+
+            // Log the depositor's email address
             Log.e(LOG_TAG, "Email is : " + depositorEmail);
         }
 
+        // Log the depositor's phone number
         Log.e(TAG, "Phone number is: " + depositorPhoneNumber);
 
+        // Bind data to the views
         accountNameText.setText(accountName);
         accountNumberText.setText(accountNumber);
         depositAmountText.setText(depositAmount);
@@ -119,6 +131,7 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
                 // Save data to realm database
                 saveToDatabase();
 
+                // Send an intent with content to PostActivity
                 sendToPostActivity();
 
             }
@@ -138,11 +151,14 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            // When user clicks delete
             case R.id.action_delete:
-                //Fill out some code here
+                //Delete the item attached to the user ID
                 mDatabaseReference.child("depositQueue").child(pushID).removeValue();
 
+                // Build main activity intent
                 Intent mainActivityIntent = new Intent(ConfirmDetailsActivity.this, MainActivity.class);
+                // Call the main activity
                 startActivity(mainActivityIntent);
 
                 return true;
@@ -178,6 +194,7 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
 
             PdfWriter.getInstance(document, fileOutputStream);
+
             document.open();
 
 
@@ -200,15 +217,17 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
     }
 
     public void sendToPostActivity() {
-        Intent intent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
-        intent.putExtra("pushID", pushID);
-        intent.putExtra("accountName", accountName);
-        intent.putExtra("accountNumber", accountNumber);
-        intent.putExtra("depositAmount", depositAmount);
-        intent.putExtra("depositorName", depositorName);
-        intent.putExtra("depositorPhoneNumber", depositorPhoneNumber);
-        intent.putExtra("depositorEmail", depositorEmail);
-        startActivity(intent);
+        Intent postDetailsIntent = new Intent(ConfirmDetailsActivity.this, PostDetailsActivity.class);
+
+        postDetailsIntent.putExtra("pushID", pushID);
+        postDetailsIntent.putExtra("accountName", accountName);
+        postDetailsIntent.putExtra("accountNumber", accountNumber);
+        postDetailsIntent.putExtra("depositAmount", depositAmount);
+        postDetailsIntent.putExtra("depositorName", depositorName);
+        postDetailsIntent.putExtra("depositorPhoneNumber", depositorPhoneNumber);
+        postDetailsIntent.putExtra("depositorEmail", depositorEmail);
+
+        startActivity(postDetailsIntent);
     }
 
     public void saveToDatabase() {
@@ -247,7 +266,6 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
     public void viewDatabase() {
         RealmResults<RealmPayment> confirmedPayments = realm.where(RealmPayment.class).findAll();
 
-        //Use an iterator to invite all confirmedPayments
 
         //For all payment classes in confirmedPayments
         for (RealmPayment payment : confirmedPayments) {
@@ -270,6 +288,8 @@ public class ConfirmDetailsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        // Close the realm instance
         realm.close();
     }
 }

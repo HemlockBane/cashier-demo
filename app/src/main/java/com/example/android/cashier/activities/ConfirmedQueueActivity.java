@@ -27,13 +27,5 @@ public class ConfirmedQueueActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new ConfirmedQueueFragment())
                 .commit();
-
-//        paymentList.clear();
-//        paymentList.addAll(DetailsActivity.paymentList);
-//
-//        realmQueueAdapter = new RealmQueueAdapter(this, R.layout.queue_view, paymentList);
-//
-//        realmQueueListView = findViewById(R.id.list);
-//        realmQueueListView.setAdapter(realmQueueAdapter);
     }
 }

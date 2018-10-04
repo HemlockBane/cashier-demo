@@ -10,8 +10,11 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        startActivity(intent);
+
+        Intent mainActivtyIntent = new Intent(SplashActivity.this, MainActivity.class);
+        startActivity(mainActivtyIntent);
+
+        // Finish splash screen
         finish();
     }
 
